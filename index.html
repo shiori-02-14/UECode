@@ -6,41 +6,100 @@
     <title>UECode</title>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <style>
-        :root { --uec-blue: #007AFF; }
+        :root { --uec-blue: #4285F4; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            min-height: 100vh; margin: 0; background-color: #f0f2f5; 
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start; 
+            min-height: 100vh; margin: 0; background-color: white; 
+            padding: 40px 20px;
         }
-        .card { 
-            background: white; padding: 30px; border-radius: 20px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; 
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
         }
-        h2 { color: #333; margin-bottom: 20px; font-size: 1.2rem; }
+        h1 { 
+            color: var(--uec-blue); 
+            font-size: 3rem; 
+            font-weight: bold; 
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+        .separator {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 0 auto 30px auto;
+            width: 100%;
+            max-width: 100%;
+        }
+        h2 { 
+            color: #000; 
+            margin-bottom: 30px; 
+            font-size: 1.5rem; 
+            font-weight: normal;
+        }
         input { 
-            padding: 12px; font-size: 18px; border: 2px solid #ddd; 
-            border-radius: 10px; width: 80%; margin-bottom: 15px; text-align: center;
-            outline: none; transition: border-color 0.3s;
+            padding: 15px; 
+            font-size: 16px; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 8px; 
+            width: 100%; 
+            max-width: 300px;
+            margin-bottom: 20px; 
+            text-align: center;
+            outline: none; 
+            transition: border-color 0.3s;
+            background: white;
         }
-        input:focus { border-color: var(--uec-blue); }
+        input:focus { 
+            border-color: var(--uec-blue); 
+        }
+        input::placeholder {
+            color: #999;
+        }
         button { 
-            padding: 12px 25px; font-size: 16px; font-weight: bold;
-            background-color: var(--uec-blue); color: white; border: none; 
-            border-radius: 10px; cursor: pointer; width: 80%; transition: opacity 0.2s;
+            padding: 15px 30px; 
+            font-size: 16px; 
+            font-weight: 500;
+            background-color: var(--uec-blue); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            width: 100%;
+            max-width: 300px;
+            transition: opacity 0.2s;
         }
-        button:active { opacity: 0.7; }
+        button:hover { 
+            opacity: 0.9; 
+        }
+        button:active { 
+            opacity: 0.7; 
+        }
         #barcode-container { 
-            margin-top: 30px; background: white; padding: 10px; border-radius: 10px;
+            margin-top: 40px; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px;
         }
-        svg { max-width: 100%; height: auto; }
-        .info { color: #888; font-size: 0.75rem; margin-top: 20px; line-height: 1.5; }
+        svg { 
+            max-width: 100%; 
+            height: auto; 
+        }
+        .info { 
+            color: #888; 
+            font-size: 0.75rem; 
+            margin-top: 30px; 
+            line-height: 1.5; 
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1 style="color: var(--uec-blue); font-size: 2rem; font-weight: bold; margin-bottom: 10px;">UECode</h1>
-    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 10px 0 20px 0; width: 100%;">
+<div class="container">
+    <h1>UECode</h1>
+    <hr class="separator">
     <h2>図書館用バーコード</h2>
     
     <input type="tel" id="studentId" placeholder="学籍番号 7桁" maxlength="7">
