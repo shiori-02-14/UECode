@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UEC Barcode Generator</title>
+    <title>UECode</title>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <style>
         :root { --uec-blue: #007AFF; }
@@ -39,7 +39,9 @@
 <body>
 
 <div class="card">
-    <h2>学生証バーコード生成</h2>
+    <h1 style="color: var(--uec-blue); font-size: 2rem; font-weight: bold; margin-bottom: 10px;">UECode</h1>
+    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 10px 0 20px 0; width: 100%;">
+    <h2>図書館用バーコード</h2>
     
     <input type="tel" id="studentId" placeholder="学籍番号 7桁" maxlength="7">
     <br>
