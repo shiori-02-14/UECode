@@ -58,6 +58,23 @@
         input::placeholder {
             color: #999;
         }
+        select {
+            padding: 15px; 
+            font-size: 16px; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 8px; 
+            width: 100%; 
+            max-width: 300px;
+            margin-bottom: 20px; 
+            text-align: center;
+            outline: none; 
+            transition: border-color 0.3s;
+            background: white;
+            cursor: pointer;
+        }
+        select:focus { 
+            border-color: var(--uec-blue); 
+        }
         button { 
             padding: 15px 30px; 
             font-size: 16px; 
@@ -104,6 +121,19 @@
     
     <input type="tel" id="studentId" placeholder="学籍番号 7桁" maxlength="7">
     <br>
+    <select id="reissueNumber">
+        <option value="0">再発行回数: 0（初回）</option>
+        <option value="1">再発行回数: 1</option>
+        <option value="2">再発行回数: 2</option>
+        <option value="3">再発行回数: 3</option>
+        <option value="4">再発行回数: 4</option>
+        <option value="5">再発行回数: 5</option>
+        <option value="6">再発行回数: 6</option>
+        <option value="7">再発行回数: 7</option>
+        <option value="8">再発行回数: 8</option>
+        <option value="9">再発行回数: 9</option>
+    </select>
+    <br>
     <button onclick="generateAndSave()">バーコードを生成・保存</button>
 
     <div id="barcode-container">
@@ -112,7 +142,7 @@
     
     <div class="info">
         規格: NW-7 (Codabar)<br>
-        構成: A + 学籍番号 + 0 + A
+        構成: A + 学籍番号 + 再発行回数 + A
     </div>
 </div>
 
@@ -120,14 +150,23 @@
     // ページ読み込み時に保存された番号があれば表示
     window.onload = function() {
         const savedId = localStorage.getItem('savedStudentId');
+        const savedReissue = localStorage.getItem('savedReissueNumber');
         if (savedId) {
             document.getElementById('studentId').value = savedId;
-            drawBarcode(savedId);
+        }
+        if (savedReissue !== null) {
+            document.getElementById('reissueNumber').value = savedReissue;
+        }
+        if (savedId && savedId.length === 7) {
+            const reissue = savedReissue !== null ? savedReissue : '0';
+            drawBarcode(savedId, reissue);
         }
     };
 
     function generateAndSave() {
         const id = document.getElementById('studentId').value;
+        const reissue = document.getElementById('reissueNumber').value;
+        
         if (id.length !== 7) {
             alert("学籍番号を7桁で入力してください。");
             return;
@@ -135,12 +174,13 @@
 
         // ブラウザに保存
         localStorage.setItem('savedStudentId', id);
-        drawBarcode(id);
+        localStorage.setItem('savedReissueNumber', reissue);
+        drawBarcode(id, reissue);
     }
 
-    function drawBarcode(id) {
-        // NW-7形式: A + 学籍番号 + 再発行番号(0) + A
-        const barcodeData = "A" + id + "0" + "A";
+    function drawBarcode(id, reissueNumber) {
+        // NW-7形式: A + 学籍番号 + 再発行番号 + A
+        const barcodeData = "A" + id + reissueNumber + "A";
 
         JsBarcode("#barcode", barcodeData, {
             format: "codabar",
